@@ -1,0 +1,17 @@
+{{#with book}}
+<form action="/books/edit?book_id={{_id}}" method="post">
+
+  <label for="">Name:</label>
+  <input type="text" name="name" value="{{name}}">
+
+  <label for="">Author:</label>
+  <input type="text" name="author" value="{{author}}">
+
+  <label for="">Description:</label>
+  <input type="text" name="description" value="{{description}}">
+
+  <label for="">Rate:</label>
+  <input type="number" name="rating" value="{{rating}}">
+{{/with}}
+  <button type="submit">Save</button>
+</form>
