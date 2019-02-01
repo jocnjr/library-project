@@ -5,17 +5,16 @@ const Author = require('../models/author');
 
 /* GET home page */
 router.get('/', (req, res, next) => {
-  res.render('index');
+  res.render('home');
 });
 
-router.get('/books', (req, res, next) => {
-  Book.find({})
-    .then(books => {
-      res.render("books", { books });
-    })
-    .catch(error => {
-      console.log(error)
-    })
+router.use((req, res, next) => {
+  console.log(req.cookies)
+  if (req.session.currentUser) {
+    next();
+  } else {
+    res.redirect("/login");
+  }
 });
 
 router.get('/book/:id', (req, res, next) => {
@@ -93,6 +92,16 @@ router.post('/reviews/add', (req, res, next) => {
   .catch((error) => {
     console.log(error)
   })
+});
+
+router.get('/books', (req, res, next) => {
+  Book.find({})
+    .then(books => {
+      res.render("books", { books , currentUser: req.session.currentUser});
+    })
+    .catch(error => {
+      console.log(error)
+    })
 });
 
 module.exports = router;
