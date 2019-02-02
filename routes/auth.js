@@ -13,6 +13,7 @@ router.post("/signup", (req, res, next) => {
   const username = req.body.username;
   const password = req.body.password;
   const name = req.body.name;
+  const role = req.body.role;
 
   if (username == '' || password == '') {
     res.render('auth/signup', {
@@ -36,7 +37,8 @@ router.post("/signup", (req, res, next) => {
     const newUser = new User({
       username: username,
       password: hashPass,
-      name: name
+      name: name,
+      role: role
     });
 
     newUser.save()

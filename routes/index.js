@@ -3,6 +3,7 @@ const router = express.Router();
 const Book = require("../models/book");
 const Author = require("../models/author");
 const ensureLogin = require("connect-ensure-login");
+const roles = require('../middlewares/roles');
 
 /* GET home page */
 router.get("/", (req, res, next) => {
@@ -13,6 +14,8 @@ router.get("/", (req, res, next) => {
 router.use(ensureLogin.ensureLoggedIn());
 
 router.get("/books", (req, res, next) => {
+  if (req.user.role && req.user.role === 'ADMIN') req.user.isAdmin = true;
+
   Book.find({})
     .then(books => {
 
@@ -31,6 +34,7 @@ router.get("/books", (req, res, next) => {
 
 router.get("/book/:id", (req, res, next) => {
   let bookId = req.params.id;
+  if (!/^[0-9a-fA-F]{24}$/.test(bookId)) return res.status(404).render('not-found');
   Book.findOne({ _id: bookId })
     .populate("author")
     .then(book => {
@@ -42,7 +46,7 @@ router.get("/book/:id", (req, res, next) => {
     });
 });
 
-router.get("/books/add", (req, res, next) => {
+router.get("/books/add", roles.checkAdmin(), (req, res, next) => {
   res.render("book-add");
 });
 

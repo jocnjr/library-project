@@ -6,7 +6,12 @@ const userSchema = new Schema({
   name: String,
   password: String,
   slackID: String,
-  googleID: String
+  googleID: String,
+  role: {
+    type: String,
+    enum : ['GUEST', 'EDITOR', 'ADMIN'],
+    default : 'GUEST'
+  },
 }, {
   timestamps: true
 });

@@ -2,6 +2,7 @@
     <label for="name">Name</label><br>
     <input type="text" name="name"
       placeholder="Add your Name">
+
     <label for="username">Username</label><br>
     <input type="text" name="username"
       placeholder="AnakinSkywalker">
@@ -9,6 +10,14 @@
     <label for="password">Password</label><br>
     <input type="password" name="password"
       placeholder="DeathStar">
+
+    <label for="role">Role</label><br>
+    <select name='role'>
+      <option>ADMIN</option>
+      <option>EDITOR</option>
+      <option>GUEST</option>
+    </select>
+    <br>
 
     {{#if msgError}}
       <div class="error-message">{{ msgError }}</div>

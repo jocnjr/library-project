@@ -1,5 +1,5 @@
 <--books.hbs-->
-<p>Olá, {{ currentUser.name }} | <a href="/logout">Logout</a></p>
+<p>Olá, {{ currentUser.name }} {{#if currentUser.isAdmin}} | <a href="/books/add">Add Book</a> {{/if}}| <a href="/logout">Logout</a></p>
 <h1>BOOKS</h1>
 {{#each books}}
     <p><a href="/book/{{_id}}">{{name}}</a></p>
