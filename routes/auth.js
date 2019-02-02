@@ -61,6 +61,13 @@ router.post("/login", passport.authenticate("local", {
   passReqToCallback: true
 }));
 
+// routes for social login with slack
+router.get("/auth/slack", passport.authenticate("slack"));
+router.get("/auth/slack/callback", passport.authenticate("slack", {
+  successRedirect: "/books",
+  failureRedirect: "/login"
+}));
+
 // old basic auth post route
 // router.post("/login", (req, res, next) => {
 //   const username = req.body.username;
