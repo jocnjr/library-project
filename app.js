@@ -13,6 +13,7 @@ const MongoStore = require("connect-mongo")(session);
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
 const SlackStrategy = require('passport-slack').Strategy;
+const GoogleStrategy = require("passport-google-oauth").OAuth2Strategy;
 const User = require("./models/user");
 const bcrypt = require("bcrypt");
 const flash = require("connect-flash");
@@ -58,6 +59,36 @@ passport.deserializeUser((id, done) => {
 
 app.use(flash());
 
+passport.use(new GoogleStrategy({
+  clientID: "434329582585-i2m5r36n1sekk5dbcv5r1jduvo47oqga.apps.googleusercontent.com",
+  clientSecret: "ghP1qoTdl2SzyNaTpt3mjtG1",
+  callbackURL: "/auth/google/callback"
+}, (accessToken, refreshToken, profile, done) => {
+  User.findOne({ googleID: profile.id })
+  .then((user, err) => {
+    if (err) {
+      return done(err);
+    }
+    if (user) {
+      return done(null, user);
+    }
+
+    const newUser = new User({
+      name: profile.displayName,
+      googleID: profile.id
+    });
+
+    newUser.save()
+    .then(user => {
+      done(null, newUser);
+    })
+  })
+  .catch(error => {
+    done(error)
+  })
+
+}));
+
 // clientId: 2432150752.540272364340
 // clientSecret: 9243ec28256862f0c4488de5ea8a83bc
 
@@ -75,6 +106,7 @@ passport.use(new SlackStrategy({
     }
 
     const newUser = new User({
+      name: profile.user.name,
       slackID: profile.id
     });
 

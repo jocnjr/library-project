@@ -61,6 +61,16 @@ router.post("/login", passport.authenticate("local", {
   passReqToCallback: true
 }));
 
+// routes for social login with google
+router.get("/auth/google", passport.authenticate("google", {
+  scope: ["https://www.googleapis.com/auth/plus.login",
+          "https://www.googleapis.com/auth/plus.profile.emails.read"]
+}));
+router.get("/auth/google/callback", passport.authenticate("google", {
+  successRedirect: "/books",
+  failureRedirect: "/login"
+}));
+
 // routes for social login with slack
 router.get("/auth/slack", passport.authenticate("slack"));
 router.get("/auth/slack/callback", passport.authenticate("slack", {
