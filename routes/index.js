@@ -15,7 +15,13 @@ router.use(ensureLogin.ensureLoggedIn());
 router.get("/books", (req, res, next) => {
   Book.find({})
     .then(books => {
-      console.log(req.user)
+
+      books.forEach(book => {
+        if (book.owner && book.owner.equals(req.user._id)) {
+          book.owned = true;
+        }
+      });
+
       res.render("books", { books, currentUser: req.user });
     })
     .catch(error => {
@@ -41,9 +47,10 @@ router.get("/books/add", (req, res, next) => {
 });
 
 router.post("/books/add", (req, res, next) => {
+
   let { name, description, author, rating } = req.body;
 
-  const newBook = new Book({ name, description, author, rating });
+  const newBook = new Book({ name, description, rating, owner: req.user._id });
 
   newBook
     .save()
@@ -58,7 +65,13 @@ router.post("/books/add", (req, res, next) => {
 router.get("/books/edit", (req, res, next) => {
   Book.findOne({ _id: req.query.book_id })
     .then(book => {
-      res.render("book-edit", { book });
+      if (book.owner && book.owner.equals(req.user._id)) {
+        res.render("book-edit", { book });
+      } else {
+        // no access for you!
+        res.redirect(`/book/${book._id}`);
+      }
+      
     })
     .catch(error => {
       console.log(error);

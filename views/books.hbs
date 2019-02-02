@@ -3,5 +3,7 @@
 <h1>BOOKS</h1>
 {{#each books}}
     <p><a href="/book/{{_id}}">{{name}}</a></p>
-    <p><a href="/books/edit?book_id={{_id}}" class="edit-button">Edit</a></p>
+    {{#if owned}}
+        <p><a href="/books/edit?book_id={{_id}}" class="edit-button">Edit</a></p>
+    {{/if}}
 {{/each}}

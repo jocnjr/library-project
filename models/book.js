@@ -11,12 +11,10 @@ const bookSchema = new Schema({
       user: String,
       comments: String
     } 
-  ]
+  ],
+  owner: {type: Schema.Types.ObjectId, ref: 'User'}
 }, {
-  timestamps: {
-    createdAt: "created_at",
-    updatedAt: "updated_at"
-  }
+  timestamps: true
 });
 
 const Book = mongoose.model("Book", bookSchema);
