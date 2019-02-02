@@ -12,6 +12,9 @@ const session = require("express-session");
 const MongoStore = require("connect-mongo")(session);
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
+const User = require("./models/user");
+const bcrypt = require("bcrypt");
+const flash = require("connect-flash");
 
 mongoose
   .connect('mongodb://localhost/library-project', {useNewUrlParser: true})
@@ -52,7 +55,10 @@ passport.deserializeUser((id, done) => {
   });
 });
 
-passport.use(new LocalStrategy((username, password, done) => {
+app.use(flash());
+passport.use(new LocalStrategy({
+  passReqToCallback: true
+},(req, username, password, done) => {
   User.findOne({ username }, (err, user) => {
     if (err) {
       return done(err);
