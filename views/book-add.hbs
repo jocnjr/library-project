@@ -1,15 +1,31 @@
-<form action="/books/add" method="post">
-  <label for="">Name:</label>
-  <input type="text" name="name">
+<div class="container">
+  <h1>Add book</h1>
+  <hr class="my-4" />
 
-  <label for="">Author:</label>
-  <input type="text" name="author">
+  <form action="/books/add" method="post">
+    <div class="form-group">
+      <label for="">Name:</label>
+      <input class="form-control" type="text" name="name">
+    </div>
 
-  <label for="">Description:</label>
-  <input type="text" name="description">
+    <div class="form-group">
+      <label for="">Author:</label>
+      <input class="form-control" type="text" name="author">
+    </div>
 
-  <label for="">Rate:</label>
-  <input type="number" name="rating">
+    <div class="form-group">
+      <label for="">Description:</label>
+      <input class="form-control" type="text" name="description">
+    </div>
 
-  <button type="submit">ADD</button>
-</form>
+    <div class="form-group">
+      <label for="">Rate:</label>
+      <input class="form-control" type="number" name="rating">
+    </div>
+
+    <button class="btn btn-primary btn-block" type="submit">ADD</button>
+  </form>
+
+  <hr class="my-4" />
+  <a href="/books">Return</a>
+</div>

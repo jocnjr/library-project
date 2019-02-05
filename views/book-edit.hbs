@@ -1,17 +1,33 @@
-{{#with book}}
-<form action="/books/edit?book_id={{_id}}" method="post">
+<div class="container">
+  <h1>Edit book</h1>
+  <hr class="my-4" />
+  {{#with book}}
+  <form action="/books/edit?book_id={{_id}}" method="post">
 
-  <label for="">Name:</label>
-  <input type="text" name="name" value="{{name}}">
+    <div class="form-group">
+      <label for="">Name:</label>
+      <input class="form-control" type="text" name="name" value="{{name}}">
+    </div>
 
-  <label for="">Author:</label>
-  <input type="text" name="author" value="{{author}}">
+    <div class="form-group">
+      <label for="">Author:</label>
+      <input class="form-control" type="text" name="author" value="{{author}}">
+    </div>
 
-  <label for="">Description:</label>
-  <input type="text" name="description" value="{{description}}">
+    <div class="form-group">
+      <label for="">Description:</label>
+      <input class="form-control" type="text" name="description" value="{{description}}">
+    </div>
 
-  <label for="">Rate:</label>
-  <input type="number" name="rating" value="{{rating}}">
-{{/with}}
-  <button type="submit">Save</button>
-</form>
+    <div class="form-group">
+      <label for="">Rate:</label>
+      <input class="form-control" type="number" name="rating" value="{{rating}}">
+    </div>
+
+    <button class="btn btn-primary btn-block" type="submit">Save</button>
+  </form>
+  {{/with}}
+
+  <hr class="my-4" />
+  <a href="/books">Return</a>
+</div>
