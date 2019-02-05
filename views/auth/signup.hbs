@@ -1,27 +1,36 @@
+<div class="container-fluid">
   <form id="form" action="/signup" method="POST">
-    <label for="name">Name</label><br>
-    <input type="text" name="name"
-      placeholder="Add your Name">
+    <div class="form-group">
+      <label for="name">Name</label><br>
+      <input class="form-control" type="text" name="name"
+        placeholder="Add your Name">
+    </div>
 
-    <label for="username">Username</label><br>
-    <input type="text" name="username"
-      placeholder="AnakinSkywalker">
+    <div class="form-group">
+      <label for="username">Username</label><br>
+      <input class="form-control" type="text" name="username"
+        placeholder="AnakinSkywalker">
+    </div>
 
-    <label for="password">Password</label><br>
-    <input type="password" name="password"
-      placeholder="DeathStar">
+    <div class="form-group">
+      <label for="password">Password</label><br>
+      <input class="form-control" type="password" name="password"
+        placeholder="DeathStar">
+    </div>
 
-    <label for="role">Role</label><br>
-    <select name='role'>
-      <option>ADMIN</option>
-      <option>EDITOR</option>
-      <option>GUEST</option>
-    </select>
-    <br>
+    <div class="form-group">
+      <label for="role">Role</label><br>
+      <select class="form-control" name='role'>
+        <option calue="ADMIN">ADMIN</option>
+        <option calue="EDITOR">EDITOR</option>
+        <option calue="GUEST">GUEST</option>
+      </select>
+    </div>
 
     {{#if msgError}}
-      <div class="error-message">{{ msgError }}</div>
+      <div class="alert alert-danger">{{ msgError }}</div>
     {{/if}}
 
-    <button>Create account</button>
+    <button class="btn btn-primary btn-block">Create account</button>
   </form>
+</div>

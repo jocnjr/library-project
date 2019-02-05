@@ -1,9 +1,30 @@
-<--books.hbs-->
-<p>Olá, {{ currentUser.name }} {{#if currentUser.isAdmin}} | <a href="/books/add">Add Book</a> {{/if}}| <a href="/logout">Logout</a></p>
-<h1>BOOKS</h1>
-{{#each books}}
-    <p><a href="/book/{{_id}}">{{name}}</a></p>
-    {{#if owned}}
-        <p><a href="/books/edit?book_id={{_id}}" class="edit-button">Edit</a></p>
-    {{/if}}
-{{/each}}
+<div class="container-fluid">
+    <p>Olá, {{ currentUser.name }} {{#if currentUser.isAdmin}} | <a href="/books/add">Add Book</a> {{/if}}| <a href="/logout">Logout</a></p>
+
+    <hr class="my-4" />
+
+    <h1>Books</h1>
+
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th scope="col">Title</th>
+                <th scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each books}}
+                <tr>
+                    <td>
+                        <a href="/book/{{_id}}">{{name}}</a>
+                    </td>
+                    <td>
+                        {{#if owned}}
+                            <a href="/books/edit?book_id={{_id}}" class="btn btn-primary btn-sm">Edit</a>
+                        {{/if}}
+                    </td>
+                </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</div>

@@ -1,24 +1,37 @@
-<h1>{{book.name}}</h1>
-{{#each book.author}}
-<span>{{lastName}}, {{name}}</span>
-{{/each}}
-<p>{{book.description}}</p>
-<p>Add a review</p>
-<form action="/reviews/add?book_id={{book._id}}" method="post">
-  <label for="">User:</label>
-  <input type="text" name="user">
+<div class="container">
+  <h1>{{book.name}}</h1>
+  {{#each book.author}}
+  <span>{{lastName}}, {{name}}</span>
+  {{/each}}
+  <p>{{book.description}}</p>
 
-  <label for="">Comments:</label>
-  <textarea type="text" name="comments"></textarea>
+  <hr class="my-4" />
 
-  <button type="submit">ADD</button>
-</form>
+  <h2>Add a review</h2>
+  <form action="/reviews/add?book_id={{book._id}}" method="post">
+    <div class="form-group">
+      <label for="input-user">User:</label>
+      <input class="form-control" type="text" id="input-user" name="user">
+    </div>
 
-<h2>Reviews</h2>
-{{#each book.reviews}}
-<div class="review-item">
-  <p>{{this.comments}}</p>
-  <span>{{this.user}}</span>
+    <div class="form-group">
+      <label for="input-comments">Comments:</label>
+      <textarea class="form-control" type="text" id="input-comments" name="comments"></textarea>
+    </div>
+
+    <button type="submit" class="btn btn-primary">ADD</button>
+  </form>
+
+  <hr class="my-4" />
+
+  <h2>Reviews</h2>
+  {{#each book.reviews}}
+  <div class="review-item">
+    <p>{{this.comments}}</p>
+    <span>{{this.user}}</span>
+  </div>
+  {{/each}}
+
+  <hr class="my-4" />
+  <a href="/books">Return</a>
 </div>
-{{/each}}
-<a href="/books">Return</a>
